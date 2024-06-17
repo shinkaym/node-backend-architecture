@@ -1,0 +1,26 @@
+{
+  "name": "node-backend-architecture",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0",
+    "start": "babel-node --watch server"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/eslint-parser": "^7.22.10",
+    "@babel/node": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "compression": "^1.7.4",
+    "eslint": "^8.47.0",
+    "global": "^4.4.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
+  }
+}
