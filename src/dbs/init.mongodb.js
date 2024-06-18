@@ -1,8 +1,9 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-console */
-const { default: mongoose } = require('mongoose')
+import mongoose from 'mongoose'
+import config from '~/configs/config.mongodb'
 
-const connectString = 'mongodb://localhost:27017/shopDev'
+const connectString = `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`
 
 class Database {
   constructor() {

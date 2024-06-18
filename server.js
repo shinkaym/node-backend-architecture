@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import app from '~/app'
 
-const PORT = 3055
+const PORT = process.env.PORT || 3055
 
 const server = app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
