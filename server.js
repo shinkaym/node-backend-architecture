@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import app from '~/app'
+import config from '~/configs/config.mongodb'
 
-const PORT = process.env.PORT || 3055
+const PORT = config.app.port || 3055
 
 const server = app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`)
+  console.log('http://localhost:', PORT)
 })
 
 process.on('SIGINT', () => {
