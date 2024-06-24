@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import { createTokenPair } from '~/auth/authUtils'
 import { shopModel } from '~/models/shop.model'
-import { keyTokenService } from '~/services/keyToken.service'
+import { keyTokenService } from '~/services/keytoken.service'
 import { getInfoData } from '~/utils'
 
 const RoleShop = {

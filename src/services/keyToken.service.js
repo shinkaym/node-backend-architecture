@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { keyTokenModel } from '~/models/keyToken.model'
+import { keyTokenModel } from '~/models/keytoken.model'
 
 class KeyTokenService {
   createKeyToken = async ({ userId, publicKey, privateKey }) => {
