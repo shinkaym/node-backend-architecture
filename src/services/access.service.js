@@ -2,10 +2,11 @@
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import { createTokenPair } from '~/auth/authUtils'
-import { BadRequestError } from '~/core/error.response'
+import { AuthFailureError, BadRequestError } from '~/core/error.response'
 import { shopModel } from '~/models/shop.model'
-import { keyTokenService } from '~/services/keytoken.service'
 import { getInfoData } from '~/utils'
+import KeyTokenService from './keytoken.service'
+import { findByEmail } from './shop.service'
 
 const RoleShop = {
   SHOP: 'SHOP',
@@ -15,7 +16,47 @@ const RoleShop = {
 }
 
 class AccessService {
-  signUp = async ({ name, email, password }) => {
+  /*
+    1 - check email
+    2 - match password
+    3 - create AT vs RT and save
+    4 - generate tokens
+    5 - get data return login
+   */
+
+  static login = async ({ email, password, refreshToken = null }) => {
+    //1 - check email
+    const foundShop = await findByEmail({ email })
+    if (!foundShop) throw new AuthFailureError('Authentication error')
+
+    //2 - match password
+    const match = bcrypt.compare(password, foundShop.password)
+    if (!match) throw new AuthFailureError('Authentication error')
+
+    //3 - create AT vs RT and save
+    const privateKey = crypto.randomBytes(64).toString('hex')
+    const publicKey = crypto.randomBytes(64).toString('hex')
+
+    //4 - generate tokens
+    const tokens = await createTokenPair({ userId: foundShop._id, email }, publicKey, privateKey)
+
+    await KeyTokenService.createKeyToken({
+      userId: foundShop._id,
+      refreshToken: tokens.refreshToken,
+      privateKey, publicKey
+    })
+
+    //5 - get data return login
+    return {
+      code: 201,
+      metadata: {
+        shop: getInfoData({ fields: ['_id', 'name', 'email'], object: foundShop }),
+        tokens
+      }
+    }
+  }
+
+  static signUp = async ({ name, email, password }) => {
     try {
       // step1: check email exist?
       const holderShop = await shopModel.findOne({ email }).lean()
@@ -33,7 +74,7 @@ class AccessService {
         const privateKey = crypto.randomBytes(64).toString('hex')
         const publicKey = crypto.randomBytes(64).toString('hex')
 
-        const keyStore = await keyTokenService.createKeyToken({
+        const keyStore = await KeyTokenService.createKeyToken({
           userId: newShop._id,
           publicKey,
           privateKey
@@ -48,14 +89,10 @@ class AccessService {
 
         // created token pair
         const tokens = await createTokenPair({ userId: newShop._id, email }, publicKey, privateKey)
-        console.log('🚀 ~ AccessService ~ signUp= ~ tokens:', tokens)
 
         return {
-          code: 201,
-          metadata: {
-            shop: getInfoData({ fields: ['_id', 'name', 'email'], object: newShop }),
-            tokens
-          }
+          shop: getInfoData({ fields: ['_id', 'name', 'email'], object: newShop }),
+          tokens
         }
       }
     } catch (error) {
@@ -68,4 +105,4 @@ class AccessService {
   }
 }
 
-export const accessService = new AccessService
+export default AccessService

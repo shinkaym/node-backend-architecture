@@ -13,6 +13,12 @@ class ConflictRequestError extends ErrorResponse {
   }
 }
 
+class AuthFailureError extends ErrorResponse {
+  constructor(message = ReasonPhrases.UNAUTHORIZED, statusCode = StatusCodes.UNAUTHORIZED) {
+    super(message, statusCode)
+  }
+}
+
 class BadRequestError extends ErrorResponse {
   constructor(message = ReasonPhrases.CONFLICT, statusCode = StatusCodes.FORBIDDEN) {
     super(message, statusCode)
@@ -21,5 +27,6 @@ class BadRequestError extends ErrorResponse {
 
 export {
   ConflictRequestError,
-  BadRequestError
+  BadRequestError,
+  AuthFailureError
 }
