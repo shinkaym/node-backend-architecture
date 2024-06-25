@@ -3,10 +3,10 @@ import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import { createTokenPair } from '~/auth/authUtils'
 import { AuthFailureError, BadRequestError } from '~/core/error.response'
-import { shopModel } from '~/models/shop.model'
 import { getInfoData } from '~/utils'
 import KeyTokenService from './keytoken.service'
-import { findByEmail } from './shop.service'
+import ShopService from './shop.service'
+import ShopModel from '~/models/shop.model'
 
 const RoleShop = {
   SHOP: 'SHOP',
@@ -16,17 +16,22 @@ const RoleShop = {
 }
 
 class AccessService {
+  static logout = async (keyStore) => {
+    const delKey = await KeyTokenService.removeKeyById(keyStore._id)
+    console.log('🚀 ~ AccessService ~ logout= ~ delKey:', delKey)
+    return delKey
+  }
+
   /*
     1 - check email
     2 - match password
     3 - create AT vs RT and save
     4 - generate tokens
     5 - get data return login
-   */
-
+  */
   static login = async ({ email, password, refreshToken = null }) => {
     //1 - check email
-    const foundShop = await findByEmail({ email })
+    const foundShop = await ShopService.findByEmail({ email })
     if (!foundShop) throw new AuthFailureError('Authentication error')
 
     //2 - match password
@@ -38,10 +43,11 @@ class AccessService {
     const publicKey = crypto.randomBytes(64).toString('hex')
 
     //4 - generate tokens
-    const tokens = await createTokenPair({ userId: foundShop._id, email }, publicKey, privateKey)
+    const { _id: userId } = foundShop
+    const tokens = await createTokenPair({ userId, email }, publicKey, privateKey)
 
     await KeyTokenService.createKeyToken({
-      userId: foundShop._id,
+      userId,
       refreshToken: tokens.refreshToken,
       privateKey, publicKey
     })
@@ -59,13 +65,13 @@ class AccessService {
   static signUp = async ({ name, email, password }) => {
     try {
       // step1: check email exist?
-      const holderShop = await shopModel.findOne({ email }).lean()
+      const holderShop = await ShopModel.findOne({ email }).lean()
       if (holderShop) {
         throw new BadRequestError('Error: Shop already registered!')
       }
 
       const passwordHash = await bcrypt.hash(password, 10)
-      const newShop = await shopModel.create({
+      const newShop = await ShopModel.create({
         name, email, password: passwordHash, roles: [RoleShop.SHOP]
       })
 

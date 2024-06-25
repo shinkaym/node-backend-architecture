@@ -1,10 +1,10 @@
-import { apiKeyModel } from '~/models/apiKey.model'
+import ApiKeyModel from '~/models/apikey.model'
 
-const findById = async (key) => {
-  const objKey = await apiKeyModel.findOne({ key, status: true }).lean()
-  return objKey
+class ApiKeyService {
+  static findById = async (key) => {
+    const objKey = await ApiKeyModel.findOne({ key, status: true }).lean()
+    return objKey
+  }
 }
 
-export {
-  findById
-}
+export default ApiKeyService

@@ -38,4 +38,6 @@ var shopSchema = new Schema({
 }
 )
 
-export const shopModel = model(DOCUMENT_NAME, shopSchema)
+const ShopModel = model(DOCUMENT_NAME, shopSchema)
+
+export default ShopModel

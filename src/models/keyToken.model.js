@@ -32,4 +32,6 @@ var keyTokenSchema = new Schema({
 }
 )
 
-export const keyTokenModel = model(DOCUMENT_NAME, keyTokenSchema)
+const KeyTokenModel = model(DOCUMENT_NAME, keyTokenSchema)
+
+export default KeyTokenModel

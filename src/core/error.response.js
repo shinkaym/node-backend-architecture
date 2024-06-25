@@ -20,7 +20,13 @@ class AuthFailureError extends ErrorResponse {
 }
 
 class BadRequestError extends ErrorResponse {
-  constructor(message = ReasonPhrases.CONFLICT, statusCode = StatusCodes.FORBIDDEN) {
+  constructor(message = ReasonPhrases.BAD_REQUEST, statusCode = StatusCodes.FORBIDDEN) {
+    super(message, statusCode)
+  }
+}
+
+class NotFoundError extends ErrorResponse {
+  constructor(message = ReasonPhrases.NOT_FOUND, statusCode = StatusCodes.NOT_FOUND) {
     super(message, statusCode)
   }
 }
@@ -28,5 +34,6 @@ class BadRequestError extends ErrorResponse {
 export {
   ConflictRequestError,
   BadRequestError,
-  AuthFailureError
+  AuthFailureError,
+  NotFoundError
 }
