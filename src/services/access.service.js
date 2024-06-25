@@ -2,6 +2,7 @@
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import { createTokenPair } from '~/auth/authUtils'
+import { BadRequestError } from '~/core/error.response'
 import { shopModel } from '~/models/shop.model'
 import { keyTokenService } from '~/services/keytoken.service'
 import { getInfoData } from '~/utils'
@@ -19,10 +20,7 @@ class AccessService {
       // step1: check email exist?
       const holderShop = await shopModel.findOne({ email }).lean()
       if (holderShop) {
-        return {
-          code: 'xxxx',
-          message: 'Shop already registered!'
-        }
+        throw new BadRequestError('Error: Shop already registered!')
       }
 
       const passwordHash = await bcrypt.hash(password, 10)
