@@ -24,12 +24,25 @@ class KeyTokenService {
       return error
     }
   }
+
   static findByUserId = async (userId) => {
     return await KeyTokenModel.findOne({ user: new Types.ObjectId(userId) }).lean()
   }
 
   static removeKeyById = async (id) => {
     return await KeyTokenModel.deleteOne({ _id: id })
+  }
+
+  static findByRefreshTokensUsed = async (refreshToken) => {
+    return await KeyTokenModel.findOne({ refreshTokensUsed: refreshToken }).lean()
+  }
+
+  static findByRefreshToken = async (refreshToken) => {
+    return await KeyTokenModel.findOne({ refreshToken }).lean()
+  }
+
+  static deleteKeyById = async (userId) => {
+    return await KeyTokenModel.findOneAndDelete({ user: new Types.ObjectId(userId) })
   }
 }
 

@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
-import { createTokenPair } from '~/auth/authUtils'
-import { AuthFailureError, BadRequestError } from '~/core/error.response'
+import { createTokenPair, verifyJWT } from '~/auth/authUtils'
+import { AuthFailureError, BadRequestError, ForbiddenError } from '~/core/error.response'
 import { getInfoData } from '~/utils'
 import KeyTokenService from './keytoken.service'
 import ShopService from './shop.service'
 import ShopModel from '~/models/shop.model'
+import KeyTokenModel from '~/models/keytoken.model'
 
 const RoleShop = {
   SHOP: 'SHOP',
@@ -16,10 +17,43 @@ const RoleShop = {
 }
 
 class AccessService {
+  static handlerRefreshToken = async (refreshToken) => {
+    const foundToken = await KeyTokenService.findByRefreshTokensUsed(refreshToken)
+    if (foundToken) {
+      const { userId, email } = await verifyJWT(refreshToken, foundToken.privateKey)
+      await KeyTokenService.deleteKeyById(userId)
+      throw new ForbiddenError('Something wrong happen !! Pls login')
+    }
+
+    const holderToken = await KeyTokenService.findByRefreshToken(refreshToken)
+    if (!holderToken) throw new AuthFailureError('Shop not registered')
+
+    const { userId, email } = await verifyJWT(refreshToken, holderToken.privateKey)
+
+    const foundShop = await ShopService.findByEmail({ email })
+    if (!foundShop) throw new AuthFailureError('Shop not registered 2')
+
+    const tokens = await createTokenPair({ userId, email }, holderToken.publicKey, holderToken.privateKey)
+
+    await KeyTokenModel.findOneAndUpdate(
+      { _id: holderToken._id },
+      {
+        $set: {
+          refreshToken: tokens.refreshToken
+        },
+        $addToSet: {
+          refreshTokensUsed: refreshToken
+        }
+      })
+
+    return {
+      user: { userId, email },
+      tokens
+    }
+  }
+
   static logout = async (keyStore) => {
-    const delKey = await KeyTokenService.removeKeyById(keyStore._id)
-    console.log('🚀 ~ AccessService ~ logout= ~ delKey:', delKey)
-    return delKey
+    return await KeyTokenService.removeKeyById(keyStore._id)
   }
 
   /*
