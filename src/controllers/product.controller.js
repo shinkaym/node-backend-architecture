@@ -12,6 +12,51 @@ class ProductController {
       })
     })
   }
+
+  publishProductByShop = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Publish Product success!',
+      metadata: await ProductFactory.publishProductByShop({
+        product_id: req.params.id,
+        product_shop: req.user.userId
+      })
+    })
+  }
+
+  unPublishProductByShop = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'unPublish Product success!',
+      metadata: await ProductFactory.unPublishProductByShop({
+        product_id: req.params.id,
+        product_shop: req.user.userId
+      })
+    })
+  }
+
+  getAllDraftsForShop = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Get list Draft success!',
+      metadata: await ProductFactory.findAllDraftsForShop({
+        product_shop: req.user.userId
+      })
+    })
+  }
+
+  getAllPublishForShop = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Get list Publish success!',
+      metadata: await ProductFactory.findAllPublishForShop({
+        product_shop: req.user.userId
+      })
+    })
+  }
+
+  getListSearchProducts = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Get list search products success!',
+      metadata: await ProductFactory.searchProducts(req.params)
+    })
+  }
 }
 
 export const productController = new ProductController
