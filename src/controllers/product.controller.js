@@ -57,6 +57,20 @@ class ProductController {
       metadata: await ProductFactory.searchProducts(req.params)
     })
   }
+
+  findAllProducts = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Get list products success!',
+      metadata: await ProductFactory.findAllProducts(req.query)
+    })
+  }
+
+  findProduct = async (req, res) => {
+    SuccessResponse.send(res, {
+      message: 'Get list products success!',
+      metadata: await ProductFactory.findProduct({ product_id: req.params.id })
+    })
+  }
 }
 
 export const productController = new ProductController

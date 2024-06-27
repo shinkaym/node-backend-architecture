@@ -1,5 +1,6 @@
 import { Types } from 'mongoose'
 import { ProductModel } from '../product.model'
+import { getSelectData, unGetSelectData } from '~/utils'
 
 const searchProductByUser = async ({ keySearch }) => {
   const regexSearch = new RegExp(keySearch)
@@ -57,11 +58,28 @@ const queryProduct = async ({ query, limit, skip }) => {
     .exec()
 }
 
+const findAllProducts = async ({ limit, sort, page, filter, select }) => {
+  const skip = (page - 1) * limit
+  const sortBy = sort === 'ctime' ? { _id: -1 } : { _id: 1 }
+  return await ProductModel.find(filter)
+    .sort(sortBy)
+    .skip(skip)
+    .limit(limit)
+    .select(getSelectData(select))
+    .lean()
+}
+
+const findProduct = async ({ product_id, unSelect }) => {
+  return await ProductModel.findById(product_id).select(unGetSelectData(unSelect))
+}
+
 export {
   searchProductByUser,
   findAllDraftsForShop,
   findAllPublishForShop,
   publishProductByShop,
   unPublishProductByShop,
-  queryProduct
+  queryProduct,
+  findAllProducts,
+  findProduct
 }

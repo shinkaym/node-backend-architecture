@@ -1,7 +1,7 @@
 import { Types } from 'mongoose'
 import { BadRequestError } from '~/core/error.response'
 import { ClothingModel, ElectronicModel, FurnitureModel, ProductModel } from '~/models/product.model'
-import { findAllDraftsForShop, findAllPublishForShop, publishProductByShop, searchProductByUser, unPublishProductByShop } from '~/models/repositories/product.repo'
+import { findAllDraftsForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, searchProductByUser, unPublishProductByShop } from '~/models/repositories/product.repo'
 
 class ProductFactory {
   static productRegister = {}
@@ -36,6 +36,14 @@ class ProductFactory {
 
   static async searchProducts({ keySearch }) {
     return await searchProductByUser({ keySearch })
+  }
+
+  static async findAllProducts({ limit = 50, sort = 'ctime', page = 1, filter = { isPublished: true } }) {
+    return await findAllProducts({ limit, sort, page, filter, select: ['product_name', 'product_price', 'product_thumb'] })
+  }
+
+  static async findProduct({ product_id }) {
+    return await findProduct({ product_id, unSelect: ['__v'] })
   }
 }
 
