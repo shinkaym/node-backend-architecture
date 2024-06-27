@@ -1,5 +1,6 @@
 import { SuccessResponse } from '~/core/success.response'
-import ProductFactory from '~/services/product.service'
+// import ProductFactory from '~/services/product.service'
+import ProductFactory from '~/services/product.service.xxx'
 
 class ProductController {
   createProduct = async (req, res) => {

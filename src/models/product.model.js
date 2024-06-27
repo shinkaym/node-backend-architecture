@@ -55,7 +55,7 @@ const furnitureSchema = new Schema({
 const ProductModel = model(DOCUMENT_NAME, productSchema)
 const ElectronicModel = model('Electronic', electronicSchema)
 const ClothingModel = model('Clothing', clothingSchema)
-const FurnitureModel = model('Clothing', furnitureSchema)
+const FurnitureModel = model('Furniture', furnitureSchema)
 
 export {
   ProductModel,
