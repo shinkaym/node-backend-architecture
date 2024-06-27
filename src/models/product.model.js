@@ -22,7 +22,8 @@ var productSchema = new Schema({
 const clothingSchema = new Schema({
   brand: { type: String, require: true },
   size: String,
-  material: String
+  material: String,
+  product_shop: { type: Schema.Types.ObjectId, ref: 'Shop' }
 },
 {
   timestamps: true,
@@ -32,7 +33,8 @@ const clothingSchema = new Schema({
 const electronicSchema = new Schema({
   manufacturer: { type: String, require: true },
   model: String,
-  color: String
+  color: String,
+  product_shop: { type: Schema.Types.ObjectId, ref: 'Shop' }
 },
 {
   timestamps: true,
