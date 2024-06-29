@@ -1,7 +1,8 @@
 import { Types } from 'mongoose'
 import { BadRequestError } from '~/core/error.response'
 import { ClothingModel, ElectronicModel, FurnitureModel, ProductModel } from '~/models/product.model'
-import { findAllDraftsForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, searchProductByUser, unPublishProductByShop } from '~/models/repositories/product.repo'
+import { findAllDraftsForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, searchProductByUser, unPublishProductByShop, updateProductById } from '~/models/repositories/product.repo'
+import { removeUndefinedObject, updateNestedObjectParser } from '~/utils'
 
 class ProductFactory {
   static productRegister = {}
@@ -45,6 +46,12 @@ class ProductFactory {
   static async findProduct({ product_id }) {
     return await findProduct({ product_id, unSelect: ['__v'] })
   }
+
+  static async updateProduct(type, productId, payload) {
+    const productClass = ProductFactory.productRegister[type]
+    if (!productClass) throw new BadRequestError('Invalid Product Types ', type)
+    return new productClass(payload).updateProduct(productId)
+  }
 }
 
 class Product {
@@ -65,6 +72,10 @@ class Product {
   async createProduct(product_id) {
     return await ProductModel.create({ ...this, _id: product_id })
   }
+
+  async updateProduct(productId, bodyUpdate) {
+    return await updateProductById({ productId, bodyUpdate, model: ProductModel })
+  }
 }
 
 class Clothing extends Product {
@@ -79,6 +90,20 @@ class Clothing extends Product {
     if (!newProduct) throw new BadRequestError('create new Product error')
 
     return newProduct
+  }
+
+  async updateProduct(productId) {
+    const objectParams = removeUndefinedObject(this)
+    if (objectParams.product_attributes) {
+      await updateProductById({
+        productId,
+        bodyUpdate: updateNestedObjectParser(objectParams.product_attributes),
+        model: ClothingModel
+      })
+    }
+
+    const updateProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams))
+    return updateProduct
   }
 }
 
