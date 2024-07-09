@@ -1,6 +1,7 @@
 import { Types } from 'mongoose'
 import { BadRequestError } from '~/core/error.response'
 import { ClothingModel, ElectronicModel, FurnitureModel, ProductModel } from '~/models/product.model'
+import { insertInventory } from '~/models/repositories/inventory.repo'
 import { findAllDraftsForShop, findAllProducts, findAllPublishForShop, findProduct, publishProductByShop, searchProductByUser, unPublishProductByShop, updateProductById } from '~/models/repositories/product.repo'
 import { removeUndefinedObject, updateNestedObjectParser } from '~/utils'
 
@@ -70,7 +71,15 @@ class Product {
   }
 
   async createProduct(product_id) {
-    return await ProductModel.create({ ...this, _id: product_id })
+    const newProduct = await ProductModel.create({ ...this, _id: product_id })
+    if (newProduct) {
+      await insertInventory({
+        productId: newProduct._id,
+        shopId: this.product_shop,
+        stock: this.product_quantity
+      })
+    }
+    return newProduct
   }
 
   async updateProduct(productId, bodyUpdate) {
