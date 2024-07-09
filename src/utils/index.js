@@ -1,4 +1,7 @@
 import _ from 'lodash'
+import { Types } from 'mongoose'
+
+const convertToObjectIdMongodb = (id) => new Types.ObjectId(id)
 
 const getInfoData = ({ fields = [], object = {} }) => {
   return _.pick(object, fields)
@@ -37,6 +40,7 @@ const updateNestedObjectParser = obj => {
 }
 
 export {
+  convertToObjectIdMongodb,
   getInfoData,
   getSelectData,
   unGetSelectData,
