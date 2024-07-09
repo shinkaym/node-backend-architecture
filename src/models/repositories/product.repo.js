@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 import { ProductModel } from '../product.model'
-import { getSelectData, unGetSelectData } from '~/utils'
+import { convertToObjectIdMongodb, getSelectData, unGetSelectData } from '~/utils'
 
 const searchProductByUser = async ({ keySearch }) => {
   const regexSearch = new RegExp(keySearch)
@@ -79,6 +79,10 @@ const updateProductById = async ({ productId, bodyUpdate, model, isNew = true })
   })
 }
 
+const getProductById = async (productId) => {
+  return await ProductModel.findOne({ _id: convertToObjectIdMongodb(productId) }).lean()
+}
+
 export {
   searchProductByUser,
   findAllDraftsForShop,
@@ -88,5 +92,6 @@ export {
   queryProduct,
   findAllProducts,
   findProduct,
-  updateProductById
+  updateProductById,
+  getProductById
 }
