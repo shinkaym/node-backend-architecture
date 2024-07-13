@@ -4,19 +4,13 @@ import { reservationInventory } from '~/models/repositories/inventory.repo'
 
 const client = createClient()
 
-const promisifyCustom = (client, method) => {
-  return (...args) => {
-    return new Promise((resolve, reject) => {
-      client[method](...args, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-  };
-}
+client.ping((err, result) => {
+  if (err) {
+    console.error('Error connecting to Redis::', err)
+  } else {
+    console.log('Connected to Redis')
+  }
+})
 
 const pexpire = promisify(client.pexpire).bind(client)
 const setnxAsync = promisify(client.setnx).bind(client)

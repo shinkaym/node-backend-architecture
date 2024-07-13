@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import instanceMongodb from './dbs/init.mongodb'
 import { checkOverload } from './helpers/check.connect'
 import router from './routes'
+import ProductServiceTest from './tests/product.test'
 
 const app = express()
 
@@ -15,6 +16,9 @@ app.use(helmet())
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+import './tests/inventory.test'
+ProductServiceTest.purchaseProduct('product:001', 10)
 
 // init db
 instanceMongodb()
