@@ -1,5 +1,4 @@
 import { SuccessResponse } from '~/core/success.response'
-import CheckoutService from '~/services/checkout.service'
 import InventoryService from '~/services/inventory.service'
 
 class InventoryController {
