@@ -5,6 +5,7 @@ import discountRouter from './discount'
 import checkoutRouter from './checkout'
 import cartRouter from './cart'
 import inventoryRouter from './inventory'
+import commentRouter from './comment'
 import { apiKey, permission } from '~/auth/checkAuth'
 
 const router = express.Router()
@@ -20,6 +21,7 @@ router.use('/v1/api/discount', discountRouter)
 router.use('/v1/api/inventory', inventoryRouter)
 router.use('/v1/api/cart', cartRouter)
 router.use('/v1/api/product', productRouter)
+router.use('/v1/api/comment', commentRouter)
 router.use('/v1/api', accessRouter)
 
 export default router
