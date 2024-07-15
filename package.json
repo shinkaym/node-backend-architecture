@@ -8,6 +8,7 @@
     "start": "babel-node --watch server"
   },
   "dependencies": {
+    "amqplib": "^0.10.4",
     "bcrypt": "^5.1.1",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
