@@ -1,9 +1,9 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-console */
 import mongoose from 'mongoose'
-import config from '~/configs/config.mongodb'
+import mongodbConfig from '~/configs/mongodb.config'
 
-const connectString = `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`
+const connectString = `mongodb://${mongodbConfig.db.host}:${mongodbConfig.db.port}/${mongodbConfig.db.name}`
 
 class Database {
   constructor() {

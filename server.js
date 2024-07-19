@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import app from '~/app'
-import config from '~/configs/config.mongodb'
+import mongodbConfig from '~/configs/mongodb.config'
 
-const PORT = config.app.port || 3055
+const PORT = mongodbConfig.app.port || 3055
 
 const server = app.listen(PORT, () => {
   console.log('http://localhost:', PORT)
