@@ -1,3 +1,5 @@
+import { PutObjectCommand, s3 } from '~/configs/s3.config'
+import crypto from 'crypto'
 import cloudinary from '~/configs/cloudinary.config'
 
 class UploadService {
@@ -11,7 +13,7 @@ class UploadService {
     })
   }
 
-  static async uploadImageFromLocal({ path, folderName = 'product/8409'  }) {
+  static async uploadImageFromLocal({ path, folderName = 'product/8409' }) {
     try {
       const result = await cloudinary.uploader.upload(path, {
         public_id: 'thumb',
@@ -27,6 +29,33 @@ class UploadService {
           format: 'jpg'
         })
       }
+    } catch (error) {
+      console.error('Error uploading image::', error)
+    }
+  }
+
+  static async uploadImageFromLocalS3({ file }) {
+    try {
+      const randomImageName = () => crypto.randomBytes(16).toString('hex')
+
+      const command = new PutObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: randomImageName(),
+        Body: file.buffer,
+        ContentType: 'image/jpeg'
+      })
+
+      return await s3.send(command)
+
+      // return {
+      //   image_url: result.secure_url,
+      //   shopId: 8409,
+      //   thumb_url: await cloudinary.url(result.public_id, {
+      //     height: 100,
+      //     width: 100,
+      //     format: 'jpg'
+      //   })
+      // }
     } catch (error) {
       console.error('Error uploading image::', error)
     }
