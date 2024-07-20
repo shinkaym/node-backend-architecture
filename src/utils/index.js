@@ -39,11 +39,14 @@ const updateNestedObjectParser = obj => {
   return final
 }
 
+const randomImageName = () => Date.now() + '-' + Math.round(Math.random() * 1E9)
+
 export {
   convertToObjectIdMongodb,
   getInfoData,
   getSelectData,
   unGetSelectData,
   removeUndefinedObject,
-  updateNestedObjectParser
+  updateNestedObjectParser,
+  randomImageName
 }

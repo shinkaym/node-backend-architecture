@@ -1,6 +1,11 @@
-import { PutObjectCommand, s3 } from '~/configs/s3.config'
+import { GetObjectCommand, PutObjectCommand, s3 } from '~/configs/s3.config'
 import crypto from 'crypto'
 import cloudinary from '~/configs/cloudinary.config'
+import { randomImageName } from '~/utils'
+// import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { getSignedUrl } from '@aws-sdk/cloudfront-signer'
+
+const urlImagePublic = 'https://d2er84k6cxe94i.cloudfront.net'
 
 class UploadService {
   static async uploadImageFromUrl() {
@@ -36,16 +41,36 @@ class UploadService {
 
   static async uploadImageFromLocalS3({ file }) {
     try {
-      const randomImageName = () => crypto.randomBytes(16).toString('hex')
+      const imageName = randomImageName()
 
       const command = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: randomImageName(),
+        Key: imageName,
         Body: file.buffer,
         ContentType: 'image/jpeg'
       })
 
-      return await s3.send(command)
+      const result = await s3.send(command)
+
+      // const singedUrl = new GetObjectCommand({
+      //   Bucket: process.env.AWS_BUCKET_NAME,
+      //   Key: imageName
+      // })
+
+      // const url = await getSignedUrl(s3, singedUrl, { expiresIn: 3600 })
+
+      const url = getSignedUrl({
+        url: `${urlImagePublic}/${imageName}`,
+        keyPairId: 'K1JNNTKYLJOVE9',
+        dateLessThan: new Date(Date.now() + 1000 * 60),
+        privateKey: process.env.AWS_BUCKET_PUBLIC_KEY_ID
+      })
+
+      return {
+        // url: `${urlImagePublic}/${imageName}`,
+        url,
+        result
+      }
 
       // return {
       //   image_url: result.secure_url,
