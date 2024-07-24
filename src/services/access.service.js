@@ -7,7 +7,7 @@ import { getInfoData } from '~/utils'
 import KeyTokenService from './keyToken.service'
 import ShopService from './shop.service'
 import ShopModel from '~/models/shop.model'
-import KeyTokenModel from '~/models/keytoken.model'
+import KeyTokenModel from '~/models/keyToken.model'
 
 const RoleShop = {
   SHOP: 'SHOP',

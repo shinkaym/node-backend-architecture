@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import KeyTokenModel from '~/models/keytoken.model'
+import KeyTokenModel from '~/models/keyToken.model'
 
 class KeyTokenService {
   static createKeyToken = async ({ userId, publicKey, privateKey, refreshToken }) => {
