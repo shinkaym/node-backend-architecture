@@ -1,11 +1,19 @@
-import logger from '~/loggers/winston.log'
+import myloggerLog from '~/loggers/mylogger.log'
+// import logger from '~/loggers/winston.log'
 import { ReasonPhrases, StatusCodes } from '~/utils/httpStatusCode'
 
 class ErrorResponse extends Error {
   constructor(message, status) {
     super(message)
     this.status = status
-    logger.error(`${this.status} - ${this.message}`)
+    // logger.error(`${this.status} - ${this.message}`)
+    // myloggerLog.error(this.message, {
+    //   context: '/path',
+    //   requestId: 'KKKKK',
+    //   message: this.message,
+    //   metadata: {}
+    // })
+    myloggerLog.error(this.message, ['/api/v1/login', 'vv33344', { error: 'Bad request error' }])
   }
 }
 
