@@ -1,9 +1,11 @@
+import logger from '~/loggers/winston.log'
 import { ReasonPhrases, StatusCodes } from '~/utils/httpStatusCode'
 
 class ErrorResponse extends Error {
   constructor(message, status) {
     super(message)
     this.status = status
+    logger.error(`${this.status} - ${this.message}`)
   }
 }
 
