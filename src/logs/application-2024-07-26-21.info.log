@@ -1,0 +1,12 @@
+2024-07-26 21:45:35::info::/v1/api/shop/login::e17f5a4e-05b5-4d39-b375-a59fdb61b8d4::input params::POST::::{"email":"khoa@gmail.commm","password":"abc123"}
+2024-07-26 21:45:35::error::/v1/api/shop/login::e17f5a4e-05b5-4d39-b375-a59fdb61b8d4::401 - NaNms - Response: {"status":401,"now":1722005135674}::{"message":"Authentication error"}
+2024-07-26 21:46:06::info::/v1/api/shop/login::6c586a9e-106a-403e-913c-43c1c11d0481::input params::POST::::{"email":"khoa@gmail.commm","password":"abc123"}
+2024-07-26 21:46:06::error::/v1/api/shop/login::6c586a9e-106a-403e-913c-43c1c11d0481::401 - NaNms - Response: {"status":401,"now":1722005166790}::{"message":"Authentication error"}
+2024-07-26 21:47:13::info::/v1/api/shop/login::6513567f-50e7-49b4-bbfb-6aa2fc0e1862::input params::POST::::{"email":"khoa@gmail.commm","password":"abc123"}
+2024-07-26 21:47:13::error::/v1/api/shop/login::6513567f-50e7-49b4-bbfb-6aa2fc0e1862::401 - NaNms - Response: {"status":401,"now":1722005233104}::{"message":"Authentication error1"}
+2024-07-26 21:47:35::info::/v1/api/shop/signup::9c7f6f0e-412b-493c-9336-e0ed12a578bb::input params::POST::::{"name":"khoa","email":"khoa@gmail.com","password":"abc123"}
+2024-07-26 21:48:33::info::/v1/api/shop/signup::ea19cf94-d379-42a7-b8b7-87d86709e6bc::input params::POST::::{"name":"khoa","email":"khoa@gmail.com","password":"abc123"}
+2024-07-26 21:50:02::info::/v1/api/shop/login::15193e1f-ad63-4f66-b9f7-c60bb1496ea7::input params::POST::::{"email":"khoa@gmail.comm","password":"abc1231"}
+2024-07-26 21:50:02::error::/v1/api/shop/login::15193e1f-ad63-4f66-b9f7-c60bb1496ea7::401 - NaNms - Response: {"status":401,"now":1722005402168}::{"message":"Authentication error"}
+2024-07-26 21:51:29::info::/v1/api/shop/signup::398fddaa-0ffd-42f6-b52b-50983ffe868c::input params::POST::::{"name":"khoa","email":"khoa@gmail.com","password":"abc123"}
+2024-07-26 21:51:29::error::/v1/api/shop/signup::398fddaa-0ffd-42f6-b52b-50983ffe868c::400 - NaNms - Response: {"status":400,"now":1722005489134}::{"message":"Error: Shop already registered!"}

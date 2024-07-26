@@ -6,6 +6,7 @@ class ErrorResponse extends Error {
   constructor(message, status) {
     super(message)
     this.status = status
+    this.now = Date.now()
     // logger.error(`${this.status} - ${this.message}`)
     // myloggerLog.error(this.message, {
     //   context: '/path',
@@ -13,7 +14,7 @@ class ErrorResponse extends Error {
     //   message: this.message,
     //   metadata: {}
     // })
-    myloggerLog.error(this.message, ['/api/v1/login', 'vv33344', { error: 'Bad request error' }])
+    // myloggerLog.error(this.message, ['/api/v1/login', 'vv33344', { error: 'Bad request error' }])
   }
 }
 

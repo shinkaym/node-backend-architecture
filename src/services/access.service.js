@@ -94,49 +94,41 @@ class AccessService {
   }
 
   static signUp = async ({ name, email, password }) => {
-    try {
-      // step1: check email exist?
-      const holderShop = await ShopModel.findOne({ email }).lean()
-      if (holderShop) {
-        throw new BadRequestError('Error: Shop already registered!')
-      }
+    // step1: check email exist?
+    const holderShop = await ShopModel.findOne({ email }).lean()
+    if (holderShop) {
+      throw new BadRequestError('Error: Shop already registered!')
+    }
 
-      const passwordHash = await bcrypt.hash(password, 10)
-      const newShop = await ShopModel.create({
-        name, email, password: passwordHash, roles: [RoleShop.SHOP]
+    const passwordHash = await bcrypt.hash(password, 10)
+    const newShop = await ShopModel.create({
+      name, email, password: passwordHash, roles: [RoleShop.SHOP]
+    })
+
+    if (newShop) {
+      // created publicKey, privateKey
+      const privateKey = crypto.randomBytes(64).toString('hex')
+      const publicKey = crypto.randomBytes(64).toString('hex')
+
+      const keyStore = await KeyTokenService.createKeyToken({
+        userId: newShop._id,
+        publicKey,
+        privateKey
       })
 
-      if (newShop) {
-        // created publicKey, privateKey
-        const privateKey = crypto.randomBytes(64).toString('hex')
-        const publicKey = crypto.randomBytes(64).toString('hex')
-
-        const keyStore = await KeyTokenService.createKeyToken({
-          userId: newShop._id,
-          publicKey,
-          privateKey
-        })
-
-        if (!keyStore) {
-          return {
-            code: 'xxxx',
-            message: 'publicKeyString error'
-          }
-        }
-
-        // created token pair
-        const tokens = await createTokenPair({ userId: newShop._id, email }, publicKey, privateKey)
-
+      if (!keyStore) {
         return {
-          shop: getInfoData({ fields: ['_id', 'name', 'email'], object: newShop }),
-          tokens
+          code: 'xxxx',
+          message: 'publicKeyString error'
         }
       }
-    } catch (error) {
+
+      // created token pair
+      const tokens = await createTokenPair({ userId: newShop._id, email }, publicKey, privateKey)
+
       return {
-        code: 'xxx',
-        message: error.message,
-        status: 'error'
+        shop: getInfoData({ fields: ['_id', 'name', 'email'], object: newShop }),
+        tokens
       }
     }
   }
