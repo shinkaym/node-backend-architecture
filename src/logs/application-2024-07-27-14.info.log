@@ -1,0 +1,2 @@
+2024-07-27 14:48:22::info::/v1/api/shop/signup::1fe1328a-4bb2-49e2-8d37-9f62c121b8d3::input params::POST::::{"name":"khoa","email":"khoa@gmail.com","password":"abc123"}
+2024-07-27 14:48:22::error::/v1/api/shop/signup::1fe1328a-4bb2-49e2-8d37-9f62c121b8d3::undefined - NaNms - Response: {}::{"message":"Cannot call a class as a function"}

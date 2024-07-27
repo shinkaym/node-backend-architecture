@@ -1,0 +1,2 @@
+2024-07-27 16:46:27::error::/v1/api/user/newUser::2e121adf-9284-489c-84f9-b6b5cfa3f76f::undefined - NaNms - Response: {}::{"message":"Cannot read properties of undefined (reading 'message')"}
+2024-07-27 16:48:18::error::/v1/api/user/newUser::c2697da5-15fe-42ec-bc41-56ec156c686d::undefined - NaNms - Response: {}::{"message":"Cannot call a class as a function"}

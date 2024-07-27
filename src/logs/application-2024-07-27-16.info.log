@@ -1,0 +1,16 @@
+2024-07-27 16:43:01::info::/v1/api/email/newTemplate::23675540-6487-45ef-90bc-1f9dc4b8e830::input params::POST::::{"tem_name":"HTML EMAIL TOKEN"}
+2024-07-27 16:46:27::info::/v1/api/user/newUser::2e121adf-9284-489c-84f9-b6b5cfa3f76f::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:46:27::error::/v1/api/user/newUser::2e121adf-9284-489c-84f9-b6b5cfa3f76f::undefined - NaNms - Response: {}::{"message":"Cannot read properties of undefined (reading 'message')"}
+2024-07-27 16:48:18::info::/v1/api/user/newUser::c2697da5-15fe-42ec-bc41-56ec156c686d::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:48:18::error::/v1/api/user/newUser::c2697da5-15fe-42ec-bc41-56ec156c686d::undefined - NaNms - Response: {}::{"message":"Cannot call a class as a function"}
+2024-07-27 16:51:15::info::/v1/api/user/newUser::fcaa3eb9-b503-4891-97e0-6accb58323ca::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:53:44::info::/v1/api/user/newUser::7b78e275-dbf9-44c0-b6b5-27b6efda9399::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:53:47::info::/v1/api/user/newUser::c07fce43-f027-433a-b802-285b6f24c85d::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:53:48::info::/v1/api/user/newUser::35f9c9a6-1e6e-4803-b4ed-9508565f7915::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:53:49::info::/v1/api/user/newUser::3899fc2e-b622-4931-8b04-6b59a55d81a5::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:55:00::info::/v1/api/user/newUser::e5128da3-405c-420d-825b-60cef6994bc2::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:55:05::info::/v1/api/user/newUser::c824e2b7-6169-4624-9d19-106f22ecf441::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:55:22::info::/v1/api/user/newUser::d61ede2d-d2d3-4143-abda-d5aed064f155::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:56:03::info::/v1/api/user/newUser::defc37b0-3773-4bf7-a011-fbcbc3180615::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:56:49::info::/v1/api/user/newUser::2f732f85-b0c0-46fd-923c-25d737cc921f::input params::POST::::{"email":"shinkaym.services@gmail.com"}
+2024-07-27 16:58:01::info::/v1/api/user/newUser::480b99c9-8f3d-4d67-8003-90923c155754::input params::POST::::{"email":"shinkaym.services@gmail.com"}

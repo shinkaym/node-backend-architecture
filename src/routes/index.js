@@ -10,6 +10,8 @@ import notificationRouter from './notification'
 import uploadRouter from './upload'
 import profileRouter from './profile'
 import rbacRouter from './rbac'
+import emailRouter from './email'
+import userRouter from './user'
 import { apiKey, permission } from '~/auth/checkAuth'
 
 const router = express.Router()
@@ -20,6 +22,8 @@ router.use(apiKey)
 // check permission
 router.use(permission('0000'))
 
+router.use('/v1/api/user', userRouter)
+router.use('/v1/api/email', emailRouter)
 router.use('/v1/api/rbac', rbacRouter)
 router.use('/v1/api/profile', profileRouter)
 router.use('/v1/api/checkout', checkoutRouter)

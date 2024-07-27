@@ -1,0 +1,6 @@
+2024-07-27 21:01:13::info::/v1/api/user/newUser::c19b7b3a-8474-40a6-b5d5-7ee4d04755b9::input params::POST::::{"email":"khoapham1405@gmail.com"}
+2024-07-27 21:01:20::info::/v1/api/user/welcome-back::ad4c6d4b-9e17-426e-884f-99723b35b18e::input params::GET::::{"token":"988991770"}
+2024-07-27 21:01:20::error::/v1/api/user/welcome-back::ad4c6d4b-9e17-426e-884f-99723b35b18e::undefined - NaNms - Response: {"errors":{"usr_email":{"name":"ValidatorError","message":"Path `usr_email` is required.","properties":{"message":"Path `usr_email` is required.","type":"required","path":"usr_email"},"kind":"required","path":"usr_email"}},"_message":"User validation failed","name":"ValidationError","message":"User validation failed: usr_email: Path `usr_email` is required."}::{"message":"User validation failed: usr_email: Path `usr_email` is required."}
+2024-07-27 21:03:25::info::/v1/api/user/newUser::164dd5fb-84db-41a8-9cb4-06cf84eabad3::input params::POST::::{"email":"khoapham1405@gmail.com"}
+2024-07-27 21:03:31::info::/v1/api/user/welcome-back::ac4680c4-c5f4-4fdb-96e5-be59c4bdb962::input params::GET::::{"token":"3436611809"}
+2024-07-27 21:03:31::error::/v1/api/user/welcome-back::ac4680c4-c5f4-4fdb-96e5-be59c4bdb962::undefined - NaNms - Response: {}::{"message":"crypto.randomBytes is not a function"}

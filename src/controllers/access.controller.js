@@ -23,11 +23,14 @@ class AccessController {
       metadata: await AccessService.login(req.body)
     })
   }
+  // signUp = async (req, res) => {
+  //   CREATED.send(res, {
+  //     message: 'Registered OK!',
+  //     metadata: await AccessService.signUp(req.body)
+  //   })
+  // }
   signUp = async (req, res) => {
-    CREATED.send(res, {
-      message: 'Registered OK!',
-      metadata: await AccessService.signUp(req.body)
-    })
+    await AccessService.signUp(req.body)
   }
 }
 

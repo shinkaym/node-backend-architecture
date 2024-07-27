@@ -97,7 +97,8 @@ class AccessService {
     // step1: check email exist?
     const holderShop = await ShopModel.findOne({ email }).lean()
     if (holderShop) {
-      throw new BadRequestError('Error: Shop already registered!')
+      // throw new BadRequestError('Error: Shop already registered!')
+      return BadRequestError('Error: Shop already registered!')
     }
 
     const passwordHash = await bcrypt.hash(password, 10)

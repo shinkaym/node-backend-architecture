@@ -41,6 +41,15 @@ const updateNestedObjectParser = obj => {
 
 const randomImageName = () => Date.now() + '-' + Math.round(Math.random() * 1E9)
 
+const replacePlaceholder = (template, params) => {
+  Object.keys(params).forEach(k => {
+    const placeholder = `{{${k}}}`
+    template = template.replace(new RegExp(placeholder, 'g'), params[k])
+  })
+
+  return template
+}
+
 export {
   convertToObjectIdMongodb,
   getInfoData,
@@ -48,5 +57,6 @@ export {
   unGetSelectData,
   removeUndefinedObject,
   updateNestedObjectParser,
-  randomImageName
+  randomImageName,
+  replacePlaceholder
 }
