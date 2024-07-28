@@ -8,6 +8,7 @@ import { checkOverload } from './helpers/check.connect'
 import router from './routes'
 import { v4 as uuidv4 } from 'uuid'
 import myloggerLog from './loggers/mylogger.log'
+import { initRedis } from './dbs/init.redis'
 
 const app = express()
 
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
 
 // init db
 instanceMongodb()
+initRedis()
+
 // checkOverload()
 
 // init routes

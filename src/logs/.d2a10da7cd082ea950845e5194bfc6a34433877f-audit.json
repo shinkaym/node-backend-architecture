@@ -44,6 +44,31 @@
             "date": 1722088867364,
             "name": "src\\logs\\application-2024-07-27-21.error.log",
             "hash": "791d9d38bccabd2d0ff9b9db11e3b38f79c6b499588b6eefcff3e01300599138"
+        },
+        {
+            "date": 1722101721309,
+            "name": "src\\logs\\application-2024-07-28-00.error.log",
+            "hash": "ed01a8a48fc1bf62787faa171b29c3e5fb345b89b50c449917889286decda414"
+        },
+        {
+            "date": 1722103204662,
+            "name": "src\\logs\\application-2024-07-28-01.error.log",
+            "hash": "fc9562ab93ee7219acbec4e9e8dc0921d0cef40074ecd1a14af370601135902a"
+        },
+        {
+            "date": 1722130131588,
+            "name": "src\\logs\\application-2024-07-28-08.error.log",
+            "hash": "02140c56383a1322516f100eb1486b15a394c88536dafa651c7ac0d9287857e8"
+        },
+        {
+            "date": 1722140006214,
+            "name": "src\\logs\\application-2024-07-28-11.error.log",
+            "hash": "9d201d89bc01bb1cabe5f3aa89ab7960c98854138b5d2fb06618f6e200e970ef"
+        },
+        {
+            "date": 1722148304692,
+            "name": "src\\logs\\application-2024-07-28-13.error.log",
+            "hash": "dfea0fa0e69e8693c90d32771877843bbe087cc946989aac3237af70ee92facd"
         }
     ],
     "hashType": "sha256"
