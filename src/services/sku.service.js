@@ -1,6 +1,8 @@
 import SkuModel from '~/models/sku.model'
 import { randomProductId } from '~/utils'
 import _ from 'lodash'
+import { getCacheIO, setCacheIOExpiration } from '~/models/repositories/cache.repo'
+const { CACHE_PRODUCT } = require('~/configs/constant')
 
 class SkuService {
   static async newSku({
@@ -18,16 +20,50 @@ class SkuService {
 
   static async oneSku({ sku_id, product_id }) {
     try {
-      // read cache
-      const sku = await SkuModel.findOne({
-        sku_id,
-        product_id
-      }).lean()
+      // chưa sửa khi use middleware 
 
-      if (sku) {
-        // set cached
+      // 1. check params middleware
+      if (sku_id < 0) return null
+      if (product_id < 0) return null
+
+      // 2. read cache
+      const skuKeyCache = `${CACHE_PRODUCT.SKU}`(sku_id)
+      let skuCache = await getCacheIO({ key: skuKeyCache })
+      if (skuCache) {
+        return {
+          ...JSON.parse(skuCache),
+          toLoad: 'cache'
+        }
       }
-      return _.omit(sku, ['__v', 'updatedAt', 'createdAt', 'isDeleted'])
+      // 3. read from db
+      if (!skuCache) {
+        // 4. read from db
+        skuCache = await SkuModel.findOne({
+          sku_id, product_id
+        }).lean()
+
+        const valueCache = skuCache ? skuCache : null
+        setCacheIOExpiration({
+          key: skuKeyCache,
+          value: JSON.stringify(valueCache),
+          expirationInSeconds: 30
+        })
+      }
+
+      return {
+        skuCache,
+        toLoad: 'dbs'
+      }
+      // // read cache
+      // const sku = await SkuModel.findOne({
+      //   sku_id,
+      //   product_id
+      // }).lean()
+
+      // if (sku) {
+      //   // set cached
+      // }
+      // return _.omit(sku, ['__v', 'updatedAt', 'createdAt', 'isDeleted'])
     } catch (error) {
       return error
     }

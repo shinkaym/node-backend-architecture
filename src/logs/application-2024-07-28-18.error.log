@@ -1,2 +1,0 @@
-2024-07-28 18:34:47::error::/v1/api/product/spu/create::7c7b5d59-b90d-4657-ba1f-37949e6d3966::undefined - NaNms - Response: {"name":"JsonWebTokenError","message":"invalid signature"}::{"message":"invalid signature"}
-2024-07-28 18:35:03::error::/v1/api/shop/login::285157dd-5b8b-49ba-9621-007d39072882::401 - NaNms - Response: {"status":401,"now":1722166503616}::{"message":"Authentication error"}

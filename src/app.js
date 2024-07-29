@@ -9,6 +9,7 @@ import router from './routes'
 import { v4 as uuidv4 } from 'uuid'
 import myloggerLog from './loggers/mylogger.log'
 import { initRedis } from './dbs/init.redis'
+import { getIORedis, initIORedis } from './dbs/init.ioredis'
 
 const app = express()
 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 // init db
 instanceMongodb()
 initRedis()
+initIORedis({ IOREDIS_IS_ENABLED: true })
 
 // checkOverload()
 
